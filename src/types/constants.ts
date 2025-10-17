@@ -4,24 +4,30 @@ export const API_HEADERS = {
     'X-MS-API-ROLE': ''
   };
 
+// Microsoft Static Web Apps behave differently when running locally versus when deployed.
+// Locally, SWA intercepts calls to /data-api and forwards them to the backend API on localhost:5000
+// When deployed, the call should go to /api, which SWA will route to the backend API.
+const isLocal = import.meta.env.DEV;
+const API_PREFIX = isLocal ? '/data-api/api' : '/api';
+
 export const ENDPOINTS = {
   //tables
-  USERS: '/api/users',
-  ITEMS: '/api/items',
-  CATEGORY: '/api/categories',
-  BUILDINGS: '/api/building',
-  UNITS: '/api/units',
-  RESIDENTS: '/api/residents',
+  USERS: API_PREFIX +'/users',
+  ITEMS: API_PREFIX +'/items',
+  CATEGORY: API_PREFIX +'/categories',
+  BUILDINGS: API_PREFIX +'/building',
+  UNITS: API_PREFIX +'/units',
+  RESIDENTS: API_PREFIX +'/residents',
   //Stored Procedures
-  VERIFY_PIN: '/api/verify-pin',
-  CHECKOUT_GENERAL_ITEMS: '/api/checkout-general-items',
-  CHECKOUT_WELCOME_BASKET: '/api/checkout-welcome-basket',
-  PROCESS_INVENTORY_CHANGE: '/api/process-inventory-change',
-  RECENT_TRANSACTIONS: '/api/recent-transactions',
-  CHECK_PAST_CHECKOUT: '/api/check-past-checkout',
+  VERIFY_PIN: API_PREFIX +'/verify-pin',
+  CHECKOUT_GENERAL_ITEMS: API_PREFIX +'/checkout-general-items',
+  CHECKOUT_WELCOME_BASKET: API_PREFIX +'/checkout-welcome-basket',
+  PROCESS_INVENTORY_CHANGE: API_PREFIX +'/process-inventory-change',
+  RECENT_TRANSACTIONS: API_PREFIX +'/recent-transactions',
+  CHECK_PAST_CHECKOUT: API_PREFIX +'/check-past-checkout',
   //Views
-  EXPANDED_ITEMS: '/api/itemswithcategory',
-  CATEGORIZED_ITEMS: '/api/itemsbycategory',
+  EXPANDED_ITEMS: API_PREFIX +'/itemswithcategory',
+  CATEGORIZED_ITEMS: API_PREFIX +'/itemsbycategory',
 } as const;
 
 export const SETTINGS = {
