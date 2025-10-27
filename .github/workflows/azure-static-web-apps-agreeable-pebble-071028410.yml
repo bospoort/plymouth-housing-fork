@@ -38,7 +38,7 @@ jobs:
 
       - name: Create test database
         run: |
-          /opt/mssql-tools18/bin/sqlcmd -S localhost -U sa -P 'YourStrong@Passw0rd' -Q "CREATE DATABASE Inventory;"
+          /opt/mssql-tools18/bin/sqlcmd -S localhost -U sa -P 'YourStrong@Passw0rd' -C -Q "CREATE DATABASE Inventory;"
           echo "Test database created successfully"
 
       - name: Deploy database tables
@@ -47,7 +47,7 @@ jobs:
           for file in ./database/tables/*.sql; do
             if [ -f "$file" ]; then
               echo "Executing: $file"
-              /opt/mssql-tools18/bin/sqlcmd -S localhost -U sa -P 'YourStrong@Passw0rd' -d Inventory -i "$file"
+              /opt/mssql-tools18/bin/sqlcmd -S localhost -U sa -P 'YourStrong@Passw0rd' -C -d Inventory -i "$file"
             fi
           done
 
@@ -57,7 +57,7 @@ jobs:
           for file in ./database/dependencies/*.sql; do
             if [ -f "$file" ]; then
               echo "Executing: $file"
-              /opt/mssql-tools18/bin/sqlcmd -S localhost -U sa -P 'YourStrong@Passw0rd' -d Inventory -i "$file"
+              /opt/mssql-tools18/bin/sqlcmd -S localhost -U sa -P 'YourStrong@Passw0rd' -C -d Inventory -i "$file"
             fi
           done
 
@@ -67,7 +67,7 @@ jobs:
           for file in ./database/types/*.sql; do
             if [ -f "$file" ]; then
               echo "Executing: $file"
-              /opt/mssql-tools18/bin/sqlcmd -S localhost -U sa -P 'YourStrong@Passw0rd' -d Inventory -i "$file"
+              /opt/mssql-tools18/bin/sqlcmd -S localhost -U sa -P 'YourStrong@Passw0rd' -C -d Inventory -i "$file"
             fi
           done
 
@@ -77,7 +77,7 @@ jobs:
           for file in ./database/procedures/*.sql; do
             if [ -f "$file" ]; then
               echo "Executing: $file"
-              /opt/mssql-tools18/bin/sqlcmd -S localhost -U sa -P 'YourStrong@Passw0rd' -d Inventory -i "$file"
+              /opt/mssql-tools18/bin/sqlcmd -S localhost -U sa -P 'YourStrong@Passw0rd' -C -d Inventory -i "$file"
             fi
           done
 
@@ -87,7 +87,7 @@ jobs:
           for file in ./database/data_seed/*.sql; do
             if [ -f "$file" ]; then
               echo "Executing: $file"
-              /opt/mssql-tools18/bin/sqlcmd -S localhost -U sa -P 'YourStrong@Passw0rd' -d Inventory -i "$file"
+              /opt/mssql-tools18/bin/sqlcmd -S localhost -U sa -P 'YourStrong@Passw0rd' -C -d Inventory -i "$file"
             fi
           done
 
@@ -97,7 +97,7 @@ jobs:
           for file in ./database/data_test/*.sql; do
             if [ -f "$file" ]; then
               echo "Executing: $file"
-              /opt/mssql-tools18/bin/sqlcmd -S localhost -U sa -P 'YourStrong@Passw0rd' -d Inventory -i "$file"
+              /opt/mssql-tools18/bin/sqlcmd -S localhost -U sa -P 'YourStrong@Passw0rd' -C -d Inventory -i "$file"
             fi
           done
 
@@ -107,7 +107,7 @@ jobs:
           for file in ./tests/*.sql; do
             if [ -f "$file" ]; then
               echo "Running test: $file"
-              /opt/mssql-tools18/bin/sqlcmd -S localhost -U sa -P 'YourStrong@Passw0rd' -d TestDB -i "$file" -b
+              /opt/mssql-tools18/bin/sqlcmd -S localhost -U sa -P 'YourStrong@Passw0rd' -C -d TestDB -i "$file" -b
               if [ $? -ne 0 ]; then
                 echo "Test failed: $file"
                 exit 1
@@ -120,7 +120,7 @@ jobs:
         if: always()
         run: |
           echo "Generating test report..."
-          /opt/mssql-tools18/bin/sqlcmd -S localhost -U sa -P 'YourStrong@Passw0rd' -d TestDB -Q "
+          /opt/mssql-tools18/bin/sqlcmd -S localhost -U sa -P 'YourStrong@Passw0rd' -C -d TestDB -Q "
           SELECT 
             'Test Results Summary' as Report,
             @@VERSION as SQLServerVersion,
