@@ -117,7 +117,7 @@ jobs:
           for file in ./tests/*.sql; do
             if [ -f "$file" ]; then
               echo "Running test: $file"
-              /opt/mssql-tools18/bin/sqlcmd -S localhost -U sa -P 'YourStrong@Passw0rd' -C -d TestDB -i "$file" -b
+              /opt/mssql-tools18/bin/sqlcmd -S localhost -U sa -P 'YourStrong@Passw0rd' -C -d Inventory -i "$file" -b
               if [ $? -ne 0 ]; then
                 echo "Test failed: $file"
                 exit 1
