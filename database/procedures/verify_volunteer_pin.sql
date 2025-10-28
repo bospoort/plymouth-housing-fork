@@ -23,6 +23,14 @@ BEGIN
         RETURN;
     END;
 
+    -- Validate entered PIN is not NULL or empty
+    IF @EnteredPin IS NULL OR RTRIM(@EnteredPin) = ''
+    BEGIN
+        SET @IsValid = 0;
+        SET @ErrorMessage = 'Entered PIN is invalid';
+        RETURN;
+    END;
+
     -- Compare the entered PIN with the stored PIN
     IF (@StoredPin = @EnteredPin)
     BEGIN
