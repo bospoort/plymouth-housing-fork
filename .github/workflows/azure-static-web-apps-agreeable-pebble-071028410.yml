@@ -111,12 +111,12 @@ jobs:
             fi
           done
 
-      - name: Run stored procedure tests
+      - name: Run database tests
         run: |
-          echo "Running stored procedure tests..."
+          echo "Running tests..."
           TEST_FAILED=0
-          if [ -d "./tests" ]; then
-            for file in ./tests/*.sql; do
+          if [ -d "./database/tests" ]; then
+            for file in ./database/tests/*.sql; do
               if [ -f "$file" ]; then
                 echo "========================================"
                 echo "Running test: $file"
