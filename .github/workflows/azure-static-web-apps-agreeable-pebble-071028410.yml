@@ -111,20 +111,37 @@ jobs:
             fi
           done
 
-      - name: Run tests
+      - name: Run stored procedure tests
         run: |
           echo "Running stored procedure tests..."
-          for file in ./tests/*.sql; do
-            if [ -f "$file" ]; then
-              echo "Running test: $file"
-              /opt/mssql-tools18/bin/sqlcmd -S localhost -U sa -P 'YourStrong@Passw0rd' -C -d Inventory -i "$file" -b
-              if [ $? -ne 0 ]; then
-                echo "Test failed: $file"
-                exit 1
+          TEST_FAILED=0
+          if [ -d "./tests" ]; then
+            for file in ./tests/*.sql; do
+              if [ -f "$file" ]; then
+                echo "========================================"
+                echo "Running test: $file"
+                echo "========================================"
+                
+                # Capture both stdout and stderr
+                if ! /opt/mssql-tools18/bin/sqlcmd -S localhost -U sa -P 'YourStrong@Passw0rd' -C -d Inventory -i "$file" -b 2>&1; then
+                  echo "❌ Test failed: $file"
+                  TEST_FAILED=1
+                else
+                  echo "✅ Test passed: $file"
+                fi
+                echo ""
               fi
-              echo "Test passed: $file"
+            done
+            
+            if [ $TEST_FAILED -eq 1 ]; then
+              echo "One or more tests failed"
+              exit 1
             fi
-          done
+            
+            echo "All tests completed successfully!"
+          else
+            echo "No tests directory found, skipping..."
+          fi
 
       - name: Generate test report
         if: always()
