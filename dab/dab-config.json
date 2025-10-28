@@ -9,7 +9,7 @@
       "enabled": true
     },
     "host": {
-      "mode": "development"
+      "mode": "@env('DAB_HOST_MODE')"
     }
   },
   "entities": {
@@ -22,27 +22,15 @@
       "rest": {
         "enabled": true,
         "path": "/items",
-        "methods": [
-          "get",
-          "post",
-          "patch"
-        ]
+        "methods": ["get", "post", "patch"]
       },
       "permissions": [
         {
-          "actions": [
-            "read",
-            "create",
-            "update"
-          ],
+          "actions": ["read", "create", "update"],
           "role": "admin"
         },
         {
-          "actions": [
-            "read",
-            "create",
-            "update"
-          ],
+          "actions": ["read", "create", "update"],
           "role": "volunteer"
         }
       ]
@@ -56,23 +44,15 @@
       "rest": {
         "enabled": true,
         "path": "/itemswithcategory",
-        "methods": [
-          "get",
-          "post",
-          "patch"
-        ]
+        "methods": ["get", "post", "patch"]
       },
       "permissions": [
         {
-          "actions": [
-            "read"
-          ],
+          "actions": ["read"],
           "role": "admin"
         },
         {
-          "actions": [
-            "read"
-          ],
+          "actions": ["read"],
           "role": "volunteer"
         }
       ]
@@ -86,23 +66,15 @@
       "rest": {
         "enabled": true,
         "path": "/itemsbycategory",
-        "methods": [
-          "get",
-          "post",
-          "patch"
-        ]
+        "methods": ["get", "post", "patch"]
       },
       "permissions": [
         {
-          "actions": [
-            "read"
-          ],
+          "actions": ["read"],
           "role": "admin"
         },
         {
-          "actions": [
-            "read"
-          ],
+          "actions": ["read"],
           "role": "volunteer"
         }
       ]
@@ -119,15 +91,11 @@
       },
       "permissions": [
         {
-          "actions": [
-            "*"
-          ],
+          "actions": ["*"],
           "role": "admin"
         },
         {
-          "actions": [
-            "read"
-          ],
+          "actions": ["read"],
           "role": "volunteer"
         }
       ]
@@ -141,23 +109,15 @@
       "rest": {
         "enabled": true,
         "path": "/building",
-        "methods": [
-          "get",
-          "post",
-          "patch"
-        ]
+        "methods": ["get", "post", "patch"]
       },
       "permissions": [
         {
-          "actions": [
-            "read"
-          ],
+          "actions": ["read"],
           "role": "admin"
         },
         {
-          "actions": [
-            "read"
-          ],
+          "actions": ["read"],
           "role": "volunteer"
         }
       ]
@@ -171,23 +131,15 @@
       "rest": {
         "enabled": true,
         "path": "/units",
-        "methods": [
-          "get",
-          "post",
-          "patch"
-        ]
+        "methods": ["get", "post", "patch"]
       },
       "permissions": [
         {
-          "actions": [
-            "read"
-          ],
+          "actions": ["read"],
           "role": "admin"
         },
         {
-          "actions": [
-            "read"
-          ],
+          "actions": ["read"],
           "role": "volunteer"
         }
       ]
@@ -204,19 +156,11 @@
       },
       "permissions": [
         {
-          "actions": [
-            "read",
-            "create",
-            "update"
-          ],
+          "actions": ["read", "create", "update"],
           "role": "admin"
         },
         {
-          "actions": [
-            "read",
-            "create",
-            "update"
-          ],
+          "actions": ["read", "create", "update"],
           "role": "volunteer"
         }
       ]
@@ -230,27 +174,15 @@
       "rest": {
         "enabled": true,
         "path": "/residents",
-        "methods": [
-          "get",
-          "post",
-          "patch"
-        ]
+        "methods": ["get", "post", "patch"]
       },
       "permissions": [
         {
-          "actions": [
-            "read",
-            "create",
-            "update"
-          ],
+          "actions": ["read", "create", "update"],
           "role": "admin"
         },
         {
-          "actions": [
-            "read",
-            "create",
-            "update"
-          ],
+          "actions": ["read", "create", "update"],
           "role": "volunteer"
         }
       ]
@@ -266,9 +198,7 @@
       },
       "permissions": [
         {
-          "actions": [
-            "execute"
-          ],
+          "actions": ["execute"],
           "role": "volunteer"
         }
       ]
@@ -284,15 +214,11 @@
       },
       "permissions": [
         {
-          "actions": [
-            "execute"
-          ],
+          "actions": ["execute"],
           "role": "admin"
         },
         {
-          "actions": [
-            "execute"
-          ],
+          "actions": ["execute"],
           "role": "volunteer"
         }
       ]
@@ -308,15 +234,11 @@
       },
       "permissions": [
         {
-          "actions": [
-            "execute"
-          ],
+          "actions": ["execute"],
           "role": "admin"
         },
         {
-          "actions": [
-            "execute"
-          ],
+          "actions": ["execute"],
           "role": "volunteer"
         }
       ]
@@ -332,15 +254,11 @@
       },
       "permissions": [
         {
-          "actions": [
-            "execute"
-          ],
+          "actions": ["execute"],
           "role": "admin"
         },
         {
-          "actions": [
-            "execute"
-          ],
+          "actions": ["execute"],
           "role": "volunteer"
         }
       ]
@@ -356,15 +274,31 @@
       },
       "permissions": [
         {
-          "actions": [
-            "execute"
-          ],
+          "actions": ["execute"],
           "role": "admin"
         },
         {
-          "actions": [
-            "execute"
-          ],
+          "actions": ["execute"],
+          "role": "volunteer"
+        }
+      ]
+    },
+    "ProcessInventoryResetQuantity": {
+      "source": {
+        "object": "dbo.ProcessInventoryResetQuantity",
+        "type": "stored-procedure"
+      },
+      "rest": {
+        "enabled": true,
+        "path": "/process-inventory-reset-quantity"
+      },
+      "permissions": [
+        {
+          "actions": ["execute"],
+          "role": "admin"
+        },
+        {
+          "actions": ["execute"],
           "role": "volunteer"
         }
       ]
