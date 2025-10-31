@@ -17,7 +17,7 @@ from Items
 where id = 2
 
 
-print 'Test more than 10 items in cart'
+print 'Test more than 10 items in '
 SET @new_transaction_id = NEWID();
 exec ProcessCheckout @user_id = 1, @resident_id = 1, @new_transaction_id=@new_transaction_id, @items = N'[
       {
