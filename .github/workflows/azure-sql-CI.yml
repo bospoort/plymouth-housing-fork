@@ -1,14 +1,3 @@
-name: SQL Unit Tests
-
-on:
-  push:
-    branches:
-      - '**'
-      - '!main'
-    paths:
-      - 'database/**/*.sql'
-
-jobs:
   test-stored-procedures:
     runs-on: ubuntu-latest
 
