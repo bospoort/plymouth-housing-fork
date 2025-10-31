@@ -13,13 +13,13 @@ EXEC LogTransaction
     @resident_id = 1,
     @new_transaction_id = @new_transaction_id;
 
--- Assert: Transaction should be inserted into the table with provided ID
+-- Assert: Transaction should be inserted into the table provided ID
 SELECT @inserted_count = COUNT(*)
 FROM Transactions
 WHERE id = @new_transaction_id
-  AND user_id = 1
-  AND transaction_type = 1
-  AND resident_id = 1;
+    AND user_id = 1
+    AND transaction_type = 1
+    AND resident_id = 1;
 
 IF @inserted_count <> 1
     THROW 50101, 'Test 1 FAILED: Transaction was not inserted correctly', 1;
@@ -42,9 +42,9 @@ EXEC LogTransaction
 SELECT @inserted_count = COUNT(*)
 FROM Transactions
 WHERE id = @new_transaction_id
-  AND user_id = 2
-  AND transaction_type = 2
-  AND resident_id IS NULL;
+    AND user_id = 2
+    AND transaction_type = 2
+    AND resident_id IS NULL;
 
 IF @inserted_count <> 1
     THROW 50102, 'Test 2 FAILED: Transaction with NULL resident_id was not inserted correctly', 1;
@@ -68,7 +68,9 @@ IF @transaction_id_1 = @transaction_id_2 OR @transaction_id_1 = @transaction_id_
 
 -- Assert: All three transactions should exist in the table
 DECLARE @count INT;
-SELECT @count = COUNT(*) FROM Transactions WHERE id IN (@transaction_id_1, @transaction_id_2, @transaction_id_3);
+SELECT @count = COUNT(*)
+FROM Transactions
+WHERE id IN (@transaction_id_1, @transaction_id_2, @transaction_id_3);
 
 IF @count <> 3
     THROW 50103, 'Test 3 FAILED: Not all transactions were inserted', 1;
@@ -129,8 +131,8 @@ IF @transaction_id_1 = @transaction_id_2
 SELECT @count_same_details = COUNT(*)
 FROM Transactions
 WHERE user_id = 5
-  AND transaction_type = 1
-  AND resident_id = 3;
+    AND transaction_type = 1
+    AND resident_id = 3;
 
 IF @count_same_details <> 2
     THROW 50105, 'Test 5 FAILED: Both duplicate transactions should be logged', 1;
@@ -183,11 +185,11 @@ BEGIN CATCH
     IF ERROR_NUMBER() = 2627 OR ERROR_NUMBER() = 2601 -- Primary key or unique constraint violation
         SET @error_occurred = 1;
     ELSE BEGIN
-        DECLARE @SecondErrorMsg NVARCHAR(4000) = ERROR_MESSAGE();
-        DECLARE @SecondErrorNum INT = ERROR_NUMBER();
-        DECLARE @SecondFullErrorMsg NVARCHAR(4000) = 'Test 6 FAILED: Unexpected error ' + CAST(@SecondErrorNum AS NVARCHAR) + ': ' + @SecondErrorMsg;
-        THROW 50106, @SecondFullErrorMsg, 1;
-    END
+    DECLARE @SecondErrorMsg NVARCHAR(4000) = ERROR_MESSAGE();
+    DECLARE @SecondErrorNum INT = ERROR_NUMBER();
+    DECLARE @SecondFullErrorMsg NVARCHAR(4000) = 'Test 6 FAILED: Unexpected error ' + CAST(@SecondErrorNum AS NVARCHAR) + ': ' + @SecondErrorMsg;
+    THROW 50106, @SecondFullErrorMsg, 1;
+END
 END CATCH
 
 -- Assert: Error should have occurred
@@ -196,7 +198,9 @@ IF @error_occurred = 0
 
 -- Assert: Only one transaction with this ID should exist
 DECLARE @count_with_id INT;
-SELECT @count_with_id = COUNT(*) FROM Transactions WHERE id = @duplicate_id;
+SELECT @count_with_id = COUNT(*)
+FROM Transactions
+WHERE id = @duplicate_id;
 
 IF @count_with_id <> 1
     THROW 50106, 'Test 6 FAILED: Should have exactly one transaction with this ID', 1;
